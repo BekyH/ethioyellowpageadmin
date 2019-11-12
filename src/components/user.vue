@@ -61,11 +61,11 @@ export default {
                  password:this.user.password
              }
              axios.post(api,ceredentails)
-             .then((res)=>{
+             .then(()=>{
                 
                  this.$refs.form.reset();
                  this.$router.push('/login');
-             }).catch((err)=>{
+             }).catch(()=>{
 
              })
                     // let method;

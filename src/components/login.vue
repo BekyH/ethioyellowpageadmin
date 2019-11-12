@@ -91,14 +91,14 @@ export default {
            }
            axios.post(api,credentials)
            .then((res)=>{
-               console.log(res);
+               
                localStorage.setItem('token',res.data.id);
                this.$refs.form.reset();
                this.$store.commit("setAuthentication", true);
                 this.$refs.form.reset();
                this.$router.push('/home');
-           }).catch((err)=>{
-               console.log(err)
+           }).catch(()=>{
+              
                this.dialog = true
                this.$refs.form.reset();
            })
