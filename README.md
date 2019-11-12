@@ -27,4 +27,5 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+this is the admin page and u can found the user page on https://github.com/BekyH/userethioyellowpage.
 the backend is found on https://github.com/BekyH/ethioyellowpageserver.
