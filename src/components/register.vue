@@ -60,6 +60,12 @@
       ></v-text-field>
     
     </div>
+     <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -118,6 +124,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -177,6 +189,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -236,6 +254,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -295,6 +319,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -354,6 +384,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -413,6 +449,12 @@
       ></v-text-field>
     
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
             
@@ -474,6 +516,12 @@
        
       
     </div>
+    <label>upload image
+        <input type="file" id="file" ref="file" accept="image/*" v-on:change="handleFileUpload()"/>
+      </label>
+      <v-flex class="mt-5">
+      <!-- <v-btn v-on:click="submitFile()" color="primary">Submit</v-btn> -->
+                </v-flex>
     <v-card-actions>
       <v-btn
               align-center
@@ -508,11 +556,14 @@ const APi4 = 'http://localhost:3000/api/communications';
 const APi5 = 'http://localhost:3000/api/transports';
 const APi6 = 'http://localhost:3000/api/technologies';
 const APi7 = 'http://localhost:3000/api/tourisms';
+const imageApi = 'http://localhost:3000/api/containers/image/upload';
+import axios from 'axios';
 export default {
      data: () => ({
 
           valid: false,
-       
+          file:'',
+          
         nameRules: [
           (v) => !!v || 'Name is required',
          
@@ -530,6 +581,7 @@ export default {
                         (v) => !!v || 'city is required',
           
         ],
+        token: localStorage.getItem("token"),
         
         
          Bank:{
@@ -537,6 +589,7 @@ export default {
             phoneNo:'',
             email:'',
             city:'',
+            image:''
            
     //
          },
@@ -544,7 +597,9 @@ export default {
            name:'',
            phoneNo:'',
            email:'',
-           city:''
+           city:'',
+           image:''
+
          },
          
          transport:{
@@ -552,6 +607,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
+           image:''
          },
          
           Health:{
@@ -559,6 +615,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
+           image:'',
           },
           
           construction:{
@@ -566,6 +623,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
+           image:''
           },
             
 
@@ -574,6 +632,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
+           image:''
             },
             
             technology:{
@@ -581,6 +640,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
+           image:''
             },
             
             Tourism:{
@@ -588,7 +648,7 @@ export default {
            phoneNo:'',
            email:'',
            city:'',
-            
+            image:''
             },
             
          
@@ -611,28 +671,52 @@ export default {
            
             methods:{
                 submitHealthForm(){
+                    this.Health.image = this.file.name;
+                    console.log(this.token)
                     this.$refs.form.validate();
                     let method;
                     fetch(APi8,{
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
+                            
                         },
                         method:'POST',
                         body:JSON.stringify(this.Health)
-
+                       
                     }).then(res=>res.json())
                     .then(res=>{
                        
                         this.$refs.form.reset();
 
+                    }).catch(()=>{
+
                     })
+                    let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+          
+        })
+        .catch(function() {
+        
+        });
                 },
                 submitTourismForm(){
+                    this.Tourism.image = this.file.name;
                     this.$refs.form.validate();
                     let method;
                     fetch(APi7,{
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
                         },
                         method:'POST',
                         body:JSON.stringify(this.Tourism)
@@ -642,14 +726,34 @@ export default {
                        
                         this.$refs.form.reset();
 
-                    })
+                    }).catch((err)=>{
+                      
+                      })
+                     let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+          
+        })
+        .catch(function() {
+           
+        });
                 },
                 submitTechnoForm(){
+                    this.technology.image = this.file.name;
                     this.$refs.form.validate();
                     let method;
                     fetch(APi6,{
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
                         },
                         method:'POST',
                         body:JSON.stringify(this.technology)
@@ -659,14 +763,32 @@ export default {
                        
                         this.$refs.form.reset();
 
-                    })
+                    }).catch((err)=>console.log(err))
+                     let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+         
+        })
+        .catch(function() {
+           
+        });
                 },
                 submitTransportForm(){
+                    this.transport.image = this.file.name;
                     this.$refs.form.validate();
                     let method;
                     fetch(APi5,{
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
                         },
                         method:'POST',
                         body:JSON.stringify(this.transport)
@@ -676,14 +798,36 @@ export default {
                        
                         this.$refs.form.reset();
 
-                    })
+                    }).catch((err)=>{
+                      
+                      }
+                      )
+                    
+                    let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+         
+        })
+        .catch(function() {
+           
+        });
                 },
                submitCommunicationForm(){
+                   this.communication.image = this.file.name;
                     this.$refs.form.validate();
                     let method;
                     fetch(APi4,{
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
                         },
                         method:'POST',
                         body:JSON.stringify(this.communication)
@@ -693,16 +837,34 @@ export default {
                        
                         this.$refs.form.reset();
 
-                    })
+                    }).catch((err)=>console.log(err))
+                     let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+        
+        })
+        .catch(function() {
+           
+        });
                 },
                 submitConstructionForm(){
+                    this.construction.image = this.file.name;
                     this.$refs.form.validate();
                     let method;
                     fetch(APi3,{
 
                         
                         headers:{
-                            'Content-Type':'application/json'
+                            'Content-Type':'application/json',
+                            Authorization: this.token
                         },
                         method:'POST',
                         body:JSON.stringify(this.construction)
@@ -712,14 +874,34 @@ export default {
                        
                         this.$refs.form.reset();
 
-                    })
+                    }).catch((err)=>{
+                      
+                      })
+                     let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+         
+        })
+        .catch(function() {
+           
+        });
                 },
                 submitIndustryForm(){
+                    this.industries.image = this.file.name;
                     this.$refs.form.validate();
                      let method;
                         fetch(APi2,{
                             headers:{
-                                'Content-Type':'application/json'
+                                'Content-Type':'application/json',
+                                Authorization: this.token
                             },
                             method:'POST',
                             body:JSON.stringify(this.industries)
@@ -727,14 +909,34 @@ export default {
                           .then(res=>{
                              
                               this.$refs.form.reset();
-                          });
+                          }).catch((err)=>{
+                            
+                            })
+                           let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+     
+        })
+        .catch(function() {
+           
+        });
                 },
                 submitBankForm(){
+                    this.Bank.image = this.file.name;
                     this.$refs.form.validate();
                         let method;
                         fetch(APi,{
                             headers:{
-                                'Content-Type':'application/json'
+                                'Content-Type':'application/json',
+                                Authorization: this.token
                             },
                             method:'POST',
                             body:JSON.stringify(this.Bank)
@@ -742,8 +944,29 @@ export default {
                           .then(res=>{
                               
                               this.$refs.form.reset();
-                          });
+                          }).catch((err)=>console.log(err))
+                           let formData = new FormData();
+      //Add the form data we need to submit
+      formData.append("file", this.file);
+      axios
+        .post(imageApi, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: this.token
+          }
+        })
+        .then(function() {
+        
+        })
+        .catch(function() {
+           
+        });
                 },
+                 handleFileUpload(){
+            this.file = this.$refs.file.files[0];
+
+      },
+
                
             
             }

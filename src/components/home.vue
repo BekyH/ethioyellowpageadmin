@@ -3,24 +3,25 @@
 
     <v-container>
         <v-content >
-      <v-container fluid style="padding-top:10px; padding-left:50px;padding-right:50px fixed">
+      <v-container fluid style="padding-top:10px; padding-left:20px;padding-right:50px fixed">
           <v-layout align-center color="white">
          <v-flex xs6>
         <v-subheader style="font-size:20px; margin-left:100px;">select companies Category</v-subheader>
       </v-flex>
     <v-flex xs3 >
-       
+      
       <v-select
-         
+        
         :items="options"
         v-model="selected"
-        
+    
         label="select category"
         single-line
       
       ></v-select>
     
       </v-flex>
+      <!-- <v-img src="http://localhost:3000/api/containers/bank/download/m.PNG"></v-img> -->
       <v-flex>
       <v-btn v-if="selected==='Bank and finanicials'"
               align-center
@@ -72,18 +73,21 @@
               view</v-btn>
       </v-flex>
   </v-layout>
-        <v-layout
-          align-center 
-          justify-center
-        >
-          <v-flex >
-              <div v-if="selected==='Bank and finanicials'" >
-               
-              <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(Bank,index) in Banks" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+       
+          
+              <div v-if="selected==='Bank and finanicials'" v-bind="getBank" >
+                <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(Bank,index) in Banks" :key="index">
+                  <v-col cols="12">
+              <v-card style="margin:10px; border-radius:15px;" >
+                <v-layout row wrap>
+                    <v-flex xs6 md6>
+                      <v-flex class="ml-5 pt-3">
+                <v-card-title >
                   <div>{{Bank.name}}</div>
               </v-card-title>
+                
+              
              <v-card-text class="pt-1">
                <v-icon size="18px"> fas fa-phone</v-icon>
                {{Bank.phoneNo}}
@@ -99,7 +103,16 @@
                 {{Bank.city}}
               </v-card-text>
               </v-flex>
-              <v-flex offset-10 class="mb-2">
+                    </v-flex>
+                    <v-flex  xs6 md5 class="pt-3">
+                      <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + Bank.image"/>
+                    </v-flex>
+                </v-layout>
+              
+              <!-- <v-flex xs8 md4 offset-3>
+                <v-img src="http://localhost:3000/api/containers/bank/download/m.PNG"></v-img>
+              </v-flex> -->
+              <v-flex offset-8 class="mb-2">
               
           <v-card-actions>
                
@@ -128,7 +141,9 @@
          </v-card-actions>
               </v-flex>
          </v-card>
-                 
+                  </v-col>
+                </v-flex>
+                </v-layout>     
              <v-dialog
       v-model="dialog"
       width="700"
@@ -193,18 +208,31 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Industries'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(industry,index) in Industries" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(industry,index) in Industries" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;" >
+              <v-layout row wrap>
+                  <v-flex xs6 md5>
+                    <v-flex class="ml-5 pt-3">
+                <v-card-title >
                   <div>{{industry.name}}</div>
               </v-card-title>
+                
+              
               <v-card-text class="pt-1"> <v-icon size="18px">fas fa-phone</v-icon> {{industry.phoneNo}}</v-card-text>
               <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{industry.email}}</v-card-text>
               <v-card-text class="pt-1">
                 {{industry.city}}
               </v-card-text>
               </v-flex>
-              <v-flex offset-10>
+                  </v-flex>
+                  <v-flex  xs6 md6 class="pt-3">
+                    <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + industry.image"/>
+                  </v-flex>
+              </v-layout>
+              
+              <v-flex offset-8>
               <v-card-actions>
                
                <v-btn
@@ -225,6 +253,9 @@
               </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
             <v-dialog
       v-model="dialog2"
       width="700"
@@ -289,18 +320,31 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Transport'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(transport,index) in transports" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(transport,index) in transports" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;" >
+              <v-layout row wrap>
+                <v-flex xs6 md6>
+                   <v-flex class="ml-5 pt-3">
+                 <v-card-title >
                   <div>{{transport.name}}</div>
               </v-card-title>
+                
+             
                 <v-card-text class="pt-1" > <v-icon size="18px">fas fa-phone</v-icon> {{transport.phoneNo}}</v-card-text>
                 <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{transport.email}}</v-card-text>
               <v-card-text class="pt-1">
                 {{transport.city}}
               </v-card-text>
               </v-flex>
-              <v-flex offset-10>
+                </v-flex>
+                <v-flex xs6 md5 class="pt-3">
+                    <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + transport.image"/>
+                </v-flex>
+              </v-layout>
+             
+              <v-flex offset-8>
                 <v-card-actions>
                
                <v-btn
@@ -321,6 +365,9 @@
                 </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
              <v-dialog
       v-model="dialog5"
       width="700"
@@ -385,18 +432,33 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Health and medicine'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(medicine,index) in health" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(medicine,index) in health" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;" >
+              <v-layout row wrap>
+               <v-flex xs6 md6>
+                 <v-flex class="ml-5 pt-3">
+                <v-card-title >
                   <div>{{medicine.name}}</div>
+                  
               </v-card-title>
+                 
+              
              <v-card-text class="pt-1"> <v-icon size="18px">fas fa-phone</v-icon> {{medicine.phoneNo}}</v-card-text>
              <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{medicine.email}}</v-card-text>
               <v-card-text>
                 {{medicine.city}}
               </v-card-text>
               </v-flex>
-              <v-flex offset-10>
+               </v-flex>
+                <v-flex  xs6 md5 class="pt-3">
+                <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + medicine.image"/>    
+               </v-flex>
+              </v-layout>
+              
+              
+              <v-flex offset-8>
                 <v-card-actions>
               
                
@@ -418,7 +480,9 @@
                 </v-card-actions>
               </v-flex>
             </v-card>
-            
+                  </v-col>
+                </v-flex>
+              </v-layout>
               <v-dialog
       v-model="dialog8"
       width="700"
@@ -483,18 +547,31 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Construction'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(constr,index) in constructions" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(constr,index) in constructions" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;" >
+              <v-layout row wrap>
+                <v-flex xs6 md5>
+                  <v-flex class="ml-5 pt-3">
+                <v-card-title >
                   <div>{{constr.name}}</div>
               </v-card-title>
+                
+              
              <v-card-text class="pt-1"><v-icon size="18px">fas fa-phone</v-icon> {{constr.phoneNo}}</v-card-text>
              <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{constr.email}}</v-card-text>
               <v-card-text class="pt-1">
                 {{constr.city}}
               </v-card-text>
               </v-flex>
-              <v-flex offset-10>
+                </v-flex>
+                <v-flex xs6 md6 class="pt-3">
+                  <v-img  style="height:280px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + constr.image"/>
+                </v-flex>
+              </v-layout>
+              
+              <v-flex offset-8>
                 <v-card-actions>
                
                <v-btn
@@ -515,6 +592,9 @@
                 </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
             <v-dialog
       v-model="dialog3"
       width="700"
@@ -579,11 +659,18 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Communication'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(comn,index) in communications" :key="index">
-              <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(comn,index) in communications" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;" >
+              <v-layout>
+                <v-flex xs6 md5>
+                  <v-flex class="ml-5 pt-3">
+                <v-card-title >
                   <div>{{comn.name}}</div>
               </v-card-title>
+                
+              
              <v-card-text class="pt-1"> <v-icon size="18px">fas fa-phone</v-icon> {{comn.phoneNo}}</v-card-text>
              <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{comn.email}}</v-card-text>
               <v-card-text>
@@ -591,7 +678,13 @@
               </v-card-text>
                
               </v-flex>
-              <v-flex offset-10>
+                </v-flex>
+                <v-flex xs6 md7 class="pt-3">
+                  <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + comn.image"/>
+                </v-flex>
+              </v-layout>
+              
+              <v-flex offset-8>
                 <v-card-actions>
                
                <v-btn
@@ -612,6 +705,9 @@
                 </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
           
             <v-dialog
       v-model="dialog4"
@@ -677,18 +773,31 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Technology'">
-            <v-card style="margin:10px; border-radius:15px; width:999px;" v-for="(techno,index) in technologies" :key="index">
-             <v-flex class="ml-5">
-              <v-card-title >
+              <v-layout row wrap>
+                <v-flex xs12 md6   v-for="(techno,index) in technologies" :key="index">
+                  <v-col cols="12">
+            <v-card style="margin:10px; border-radius:15px;">
+              <v-layout>
+                <v-flex xs6 md5>
+                  <v-flex class="ml-2 pt-3">
+                <v-card-title >
                   <div>{{techno.name}}</div>
               </v-card-title>
+              
+             
              <v-card-text class="pt-1"> <v-icon size="18px">fas fa-phone</v-icon> {{techno.phoneNo}}</v-card-text>
              <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{techno.email}}</v-card-text>
               <v-card-text class="pt-1">
                 {{techno.city}}
               </v-card-text>
              </v-flex>
-              <v-flex offset-10>
+                </v-flex>
+                <v-flex xs6 md7 class="pt-3">
+                   <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + techno.image"/>
+                </v-flex>
+              </v-layout>
+             
+              <v-flex offset-8>
               <v-card-actions>
                <v-btn
               align-center
@@ -708,6 +817,9 @@
               </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
             <v-dialog
       v-model="dialog6"
       width="700"
@@ -772,18 +884,31 @@
     </v-dialog>
             </div>
             <div v-else-if="selected==='Toursim'">
-            <v-card class="elevation-20" height='100%' style="margin:10px; border-radius:15px;" v-for="(toursim,index) in toursims" :key="index">
-               <v-flex class="ml-5">
-              <v-card-title >
-                  <div>{{toursim.name}}</div>
-              </v-card-title>
-             <v-card-text class="pt-1"><v-icon size="18px">fas fa-phone</v-icon> {{toursim.phoneNo}}</v-card-text>
-             <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{toursim.email}}</v-card-text>
-              <v-card-text class="pt-1">
-                {{toursim.city}}
-              </v-card-text>
-               </v-flex>
-              <v-flex offset-10>
+              <v-layout row wrap>
+                <v-flex xs12 md6  v-for="(toursim,index) in toursims" :key="index">
+                  <v-col cols="12">
+            <v-card class="elevation-20" height='100%' style="margin:10px; border-radius:15px;" >
+                <v-layout row wrap>
+                  <v-flex xs6 md5>
+                    <v-flex class="ml-5 pt-3">
+                  <v-card-title >
+                    <div>{{toursim.name}}</div>
+                </v-card-title>
+                  
+                
+              <v-card-text class="pt-1"><v-icon size="18px">fas fa-phone</v-icon> {{toursim.phoneNo}}</v-card-text>
+              <v-card-text class="pt-1"> <v-icon size="16px">fas fa-envelope</v-icon> {{toursim.email}}</v-card-text>
+                <v-card-text class="pt-1">
+                  {{toursim.city}}
+                </v-card-text>
+                </v-flex>
+                  </v-flex>
+                  <v-flex xs6 md6 class="pt-3">
+                      <v-img  style="height:250px;width:400px;" :src="'http://localhost:3000/api/containers/image/download/' + toursim.image"/>
+                  </v-flex>
+              </v-layout>
+               
+              <v-flex offset-8>
                 <v-card-actions>
                
                <v-btn
@@ -804,6 +929,9 @@
                 </v-card-actions>
               </v-flex>
             </v-card>
+                  </v-col>
+                </v-flex>
+              </v-layout>
             <v-dialog
       v-model="dialog7"
       width="700"
@@ -867,8 +995,7 @@
       </v-card>
     </v-dialog>
             </div>
-          </v-flex>
-        </v-layout>
+         
       </v-container>
 
     
@@ -886,12 +1013,13 @@ const APi4 = 'http://localhost:3000/api/communications';
 const APi5 = 'http://localhost:3000/api/transports';
 const APi6 = 'http://localhost:3000/api/technologies';
 const APi7 = 'http://localhost:3000/api/tourisms';
-import { get } from 'http';
+// const imageurl = 'http://localhost:3000/api/containers/image/download';
+
 export default {
     data(){
         return {
           clicked:false,
-            selected:'',
+            selected:'Bank and finanicials',
             dialog: false,
             dialog1:false,
             dialog2:false,
@@ -911,6 +1039,7 @@ export default {
                 'Technology',
                 'Toursim'
             ],
+            token: localStorage.getItem("token"),
             Banks:[],
             Bank:{
              name:'',
@@ -1034,11 +1163,14 @@ export default {
                     
                     .then(res=>this.Banks=res)
 
-                    .catch((err)=>console.log(err))
+                    .catch(()=>{
+
+                    })
                     
                     
                     
                 },
+                
                 getIndustry(){
                   fetch(APi2)
                   .then(res=>res.json())
@@ -1090,100 +1222,110 @@ export default {
                     
                     .then(res=>this.health=res);
                 },
+               
+              
                 deleteBank(Bank){
                   fetch(APi + '/'+ Bank.id, {
 
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getBank();
 			});
                 },
                 deleteIndustry(industry){
                   fetch(APi2 + '/' + industry.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getIndustry();
 			});
                 },
                  deleteConstruction(construction){
                   fetch(APi3 + '/' + construction.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getConstruction();
 			});
                 },
                  deleteCommunication(communication){
                   fetch(APi4 + '/' + communication.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getCommunication();
 			});
                 },
                  deleteTransport(transport){
                   fetch(APi5 + '/' + transport.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getTransport();
 			});
                 },
                  deleteTechno(techno){
                   fetch(APi6 + '/' + techno.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getTechno();
 			});
                 },
                  deleteTourism(toursim){
                   fetch(APi7 + '/' + toursim.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getToursim();
 			});
                 },
                  deleteHealth(health){
                   fetch(APi8 + '/' + health.id, {
 				headers:{
-					'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          Authorization: this.token
 				},
 				method:'DELETE'
 			})
 			.then(res => res.json())
-			.then(res => {
+			.then(() => {
 				this.getMedicine();
 			});
                 },
@@ -1204,9 +1346,15 @@ export default {
                   
                 
              },editedbank(B){
-                 axios.put(APi + '/',B);
-                  this.getBank();
+                 axios.put(APi + '/',B,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				});
+                 
                   this.dialog = false;
+                   this.getBank();
              },
              editIndustry(industry){
                fetch(APi2 + '/' + industry.id)
@@ -1217,7 +1365,12 @@ export default {
 
              },
              editedIndustry(ind){
-               axios.put(APi2 + '/' ,ind)
+               axios.put(APi2 + '/' ,ind,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				})
                this.getIndustry();
                this.dialog2 = false;
              },
@@ -1229,7 +1382,12 @@ export default {
                 });
              },
              editedConstruction(con){
-               axios.put(APi3 + '/' ,con);
+               axios.put(APi3 + '/' ,con,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				});
                this.getConstruction();
                this.dialog3 = false;
 
@@ -1242,7 +1400,12 @@ export default {
                 });
              },
              editedCommunication(com){
-               axios.put(APi4 + '/', com)
+               axios.put(APi4 + '/', com,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				})
                this.getCommunication();
                this.dialog4 = false;
              },
@@ -1253,8 +1416,13 @@ export default {
                .then(res=>this.tr = res);
 
              },
-             editedTransport(tr){
-               axios.put(APi5 + '/',tr)
+             editedTransport(tr,){
+               axios.put(APi5 + '/',tr,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+        })
               this.dialog5 = false;
              },
               editHealth(health){
@@ -1274,7 +1442,12 @@ export default {
                   
                 
              },editedHealth(he){
-                 axios.put(APi8 + '/',he);
+                 axios.put(APi8 + '/',he,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				});
                   this.getMedicine();
                   this.dialog8 = false;
              },
@@ -1295,10 +1468,16 @@ export default {
                   
                 
              },editedTechno(tech){
-                 axios.put(APi6 + '/',tech);
+                 axios.put(APi6 + '/',tech,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				});
                   
-                  this.dialog = false;
+                 
                   this.getTechno();
+                   this.dialog6 = false;
              },
               editToursim(tourism){
                   
@@ -1316,8 +1495,13 @@ export default {
                   
                   
                 
-             },editedToursim(tour){
-                 axios.put(APi7 + '/',tour);
+             },editedToursim(tour,){
+                 axios.put(APi7 + '/',tour,{
+				headers:{
+          'Content-Type':'application/json',
+          Authorization: this.token
+        }
+				});
                   
                   
                   this.getToursim();
@@ -1325,7 +1509,14 @@ export default {
              },
    
           
-          
+        
+        
+        
+        },
+        mounted(){
+          if(this.selected==="Bank and finanicials"){
+            this.getBank();
+          }
         }
 
     }
