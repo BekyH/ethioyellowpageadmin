@@ -6,7 +6,7 @@
             </v-flex>
             <v-flex xs12 sm6 offset-sm3 class="mt-3">
                 <v-form v-model="valid" ref="form">
-                    <h4>Login form</h4>
+                    <h4>Login here</h4>
                     <v-text-field label="Email" v-model="user.email" :rules="emailrules" required></v-text-field>
                     <v-text-field label="Password" type="password" v-model="user.password" :rules="passwordrules" required></v-text-field>
                     <v-flex class="mt-3">

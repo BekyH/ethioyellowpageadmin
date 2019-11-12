@@ -2,11 +2,11 @@
     <v-container>
         <v-layout row wrap>
             <v-flex xs12 class="pt-3">
-                <h3>Register</h3>
+                <h3>Registeration</h3>
             </v-flex>
             <v-flex xs12 sm6 offset-sm3 class="mt-3">
                 <v-form v-model="valid" ref="form">
-                    <h4>Registeration form</h4>
+                    <h4>Register here</h4>
                     <v-text-field label="Name" v-model="user.name" :rules="namerules" required></v-text-field>
                     <v-text-field label="Email" v-model="user.email" :rules="emailrules" required></v-text-field>
                     <v-text-field label="Password" v-model="user.password" type="password" :rules="passwordrules" required></v-text-field>
@@ -37,7 +37,7 @@ export default {
                 email:'',
                 password:''
             },
-            cpassword:'',
+           
             emailrules:[
           (v) => !!v || 'E-mail is required',
           (v) => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(.\w{2,3})+$/.test(v) || 'E-mail must be valid'
@@ -62,10 +62,12 @@ export default {
              }
              axios.post(api,ceredentails)
              .then((res)=>{
-                 console.log(res);
+                
                  this.$refs.form.reset();
                  this.$router.push('/login');
-             }).catch((err)=>console.log(err))
+             }).catch((err)=>{
+
+             })
                     // let method;
                     // fetch(api,{
                     //     headers:{
